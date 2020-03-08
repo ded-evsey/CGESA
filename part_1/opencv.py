@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import os
 
 FILE_NAME = 'kitten'
 KERNEL = np.ones((5, 5), np.uint8)
@@ -20,7 +21,7 @@ def read_write_file(grey=False, file_name=FILE_NAME):
 
         def wrapper(image=img):
             return_img = func(image)
-            cv2.imwrite(f'output_files/{file_name}_{func.__name__}.jpg', return_img)
+            cv2.imwrite(f'output_files/{file_name}/{func.__name__}.jpg', return_img)
             print(f'{func.__name__} complete')
         return wrapper
     return args_wrapper
@@ -123,7 +124,38 @@ def erosion(img):
     return cv2.erode(img, KERNEL)
 
 
+@read_write_file()
+def rotate(img):
+    """
+    Загрузить изображение из файла.
+    Выполнить поворот на заданный угол.
+    Результат сохранить в файл
+    :param img:
+    :return:
+    """
+    (h, w) = img.shape[:2]
+    center = (w / 2, h / 2)
+    M = cv2.getRotationMatrix2D(center, 42, 0.7)
+    return cv2.warpAffine(img, M, (w, h))
+
+
+@read_write_file()
+def move(img):
+    """
+    Загрузить изображение из файла.
+    Выполнить сдвиг изображения на заданный вектор.
+    Результат сохранить в файл
+    :param img:
+    :return:
+    """
+    rows, cols = img.shape[:2]
+    M = np.float32([[1, 0, 100], [0, 1, 50]])
+    return cv2.warpAffine(img, M, (cols, rows))
+
+
 if __name__ == '__main__':
+    if not os.path.exists(f'output_files/{FILE_NAME}'):
+        os.mkdir(f'output_files/{FILE_NAME}')
     # filters
     laplacian()
     blur_gaussian()
@@ -133,4 +165,6 @@ if __name__ == '__main__':
     gradient()
     closing()
     erosion()
-
+    # geometric
+    rotate()
+    move()
