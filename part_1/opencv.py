@@ -26,7 +26,7 @@ def read_write_file(func_name, grey, file_name):
     Декоратор, создающий объект изображения в памяти
     и сохраняющий изображение после выполнения функции.
     Так же, при необходимости переводит изображение в серый
-    :param func_name
+    :param func_name: str
     :param grey: bool
     :param file_name: str
     """
@@ -49,8 +49,8 @@ def laplacian(img):
     Преобразовать в оттенки серого.
     Применить фильтр вычисления лапласиана.
     Результат сохранить в файл.
-    :param img obj
-    :return img obj post correct
+    :param img obj cv2
+    :return img obj cv2
     """
     return cv2.Laplacian(img, cv2.CV_16S)
 
@@ -60,8 +60,8 @@ def blur_gaussian(img):
     Загрузить изображение из файла.
     Применить сглаживающий фильтр Гаусса.
     Результат сохранить в файл.
-    :param img obj
-    :return img obj post correct
+    :param img obj cv2
+    :return img obj cv2
     """
     return cv2.GaussianBlur(img, (5, 5), cv2.BORDER_DEFAULT)
 
@@ -71,8 +71,8 @@ def median(img):
     Загрузить изображение из файла.
     Применить медианный сглаживающий фильтр.
     Результат сохранить в файл.
-    :param img obj
-    :return: img obj post correct
+    :param img obj cv2
+    :return: img obj cv2
     """
     return cv2.medianBlur(img, 1)
 
@@ -83,7 +83,7 @@ def morph(img, type_morph, kernel=KERNEL):
     :param img: объект изображения
     :param type_morph: тип преобразования
     :param kernel: кернел
-    :return:
+    :return img: obj cv2
     """
     return cv2.morphologyEx(img, type_morph, kernel)
 
@@ -95,8 +95,8 @@ def top_hat(img):
     Выполнить морфологическое преобразование
     «top hat» с различными параметрами.
     Результат сохранить в файл
-    :param img:
-    :return:
+    :param img: obj cv2
+    :return img: obj cv2
     """
     return morph(img, cv2.MORPH_TOPHAT)
 
@@ -108,8 +108,8 @@ def gradient(img):
     Выполнить морфологическое преобразование
     градиента с различными параметрами.
     Результат сохранить в файл
-    :param img:
-    :return:
+    :param img: obj cv2
+    :return img:obj cv2
     """
     return morph(img, cv2.MORPH_GRADIENT)
 
@@ -121,8 +121,8 @@ def closing(img):
     Выполнить морфологическое преобразование замыкания
     с различными параметрами.
     Результат сохранить в файл
-    :param img:
-    :return:
+    :param img:obj cv2
+    :return img:obj cv2
     """
     return morph(img, cv2.MORPH_CLOSE)
 
@@ -134,8 +134,8 @@ def erosion(img):
     Выполнить морфологическое преобразование
     эрозии с различными параметрами.
     Результат сохранить в файл #36
-    :param img:
-    :return:
+    :param img: obj cv2
+    :return img: obj cv2
     """
     return cv2.erode(img, KERNEL)
 
@@ -145,8 +145,8 @@ def rotate(img):
     Загрузить изображение из файла.
     Выполнить поворот на заданный угол.
     Результат сохранить в файл
-    :param img:
-    :return:
+    :param img: obj cv2
+    :return img: obj cv2
     """
     (h, w) = img.shape[:2]
     center = (w / 2, h / 2)
@@ -159,8 +159,8 @@ def move(img):
     Загрузить изображение из файла.
     Выполнить сдвиг изображения на заданный вектор.
     Результат сохранить в файл
-    :param img:
-    :return:
+    :param img:obj cv2
+    :return img:obj cv2
     """
     rows, cols = img.shape[:2]
     M = np.float32([[1, 0, 100], [0, 1, 50]])
@@ -173,8 +173,8 @@ def canny(img):
     к оттенкам серого.
     Преобразовать изображение фильтром Канни.
     Результат сохранить в файл
-    :param img:
-    :return:
+    :param img: obj cv2
+    :return img: obj cv2
     """
     return cv2.Canny(img, 10, 250)
 
@@ -184,8 +184,8 @@ def contour(img):
     Загрузить изображение из файла.
     Определить контуры.
     Сохранить их изображения в отдельный файл
-    :param img:
-    :return:
+    :param img: obj cv2
+    :return img: obj cv2
     """
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)  # меняем цветовую модель с BGR на HSV
     thresh = cv2.inRange(hsv, HSV_MIN, HSV_MAX)  # применяем цветовой фильтр
@@ -210,14 +210,14 @@ def search_geometry(img):
     обвести соответствующую
     часть изображения прямоугольником.
     Результат вывести на экран.
-    :param img:
-    :return img:
+    :param img: obj cv2
+    :return img: obj cv2
     """
     blur = blur_gaussian(img)
     dirt_contour = canny(blur)
     closing_contour = closing(dirt_contour)
     cntr, hier = cv2.findContours(closing_contour.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    img = cv2.cvtColor(img,cv2.COLOR_GRAY2BGR)
+    img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
     for cont in cntr:
         peri = cv2.arcLength(cont, True)
         approx = cv2.approxPolyDP(cont, 0.045 * peri, True)
@@ -234,8 +234,8 @@ def equalize_hist(img):
     операцию выравнивания гистограммы.
     Вывести на экран исходное
     и результирующие изображения #59
-    :param img:
-    :return:
+    :param img: obj cv2
+    :return: obj cv2
     """
     equ = cv2.equalizeHist(img)
     return np.hstack((img, equ))
