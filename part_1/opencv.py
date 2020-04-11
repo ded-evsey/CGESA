@@ -324,7 +324,6 @@ if __name__ == '__main__':
             'file_name': FILE_NAME_KITTEN,
             'func_name': equalize_hist.__name__
         },
-
     ]
     for func in functions:
         @read_write_file(
