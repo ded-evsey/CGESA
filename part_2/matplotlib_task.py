@@ -1,10 +1,10 @@
 import numpy as np
-import sys
 from matplotlib import pyplot as plt
 from matplotlib import patches
-from random import choices, randint
+from random import choices
 
 
+#  Описаная фигура. Начало
 def on_circle(center, point, r):
     calc_x = (center[0] - point[0]) ** 2 / r ** 2
     calc_y = (center[1] - point[1]) ** 2 / r ** 2
@@ -43,6 +43,10 @@ def get_points(center, r, n):
 
 
 def polygon_in_round():
+    """
+    Для заданного n>2 построить правильный n угольник,
+    вписанный в окружность с данным центром и радиусом
+    """
     # ввод от пользователя
     x, y = input('Введите центр в формате x,y ').split(',')
     r = 0
@@ -80,6 +84,7 @@ def polygon_in_round():
     ax.set_aspect('equal', adjustable='datalim')
     ax.plot()
     plt.show()
+#  Описаная фигура. Конец
 
 
 if __name__ == '__main__':
