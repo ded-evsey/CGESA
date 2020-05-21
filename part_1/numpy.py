@@ -3,6 +3,7 @@ import numpy as np
 
 def fibonacci(last):
     """
+    https://github.com/ded-evsey/CGESA/projects/6#card-33180831
     Построить последовательность Фибоначчи
     методом цикла
     """
@@ -16,6 +17,7 @@ def fibonacci(last):
 
 def file_numerical_sequence(file_name):
     """
+    https://github.com/ded-evsey/CGESA/projects/6#card-33180840
      В файле хранятся числовые данные,
      перечисленные через разделитель пробела.
      Загрузить данные в одномерный массив.

@@ -1,17 +1,18 @@
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib import patches
-from random import choices
+from random import choices, randint
+import math
 
 
-#  Описаная фигура. Начало
+#  Вписанная фигура случайная и с выбранным количество углов. Начало
 def on_circle(center, point, r):
     calc_x = (center[0] - point[0]) ** 2 / r ** 2
     calc_y = (center[1] - point[1]) ** 2 / r ** 2
     return calc_x + calc_y == 1.0
 
 
-def get_points(center, r, n):
+def get_points(center, r, n=None):
     step = 10**-r
     point_round = [
         np.arange(center[i] - r - step, center[i] + r + step, step)
@@ -25,6 +26,8 @@ def get_points(center, r, n):
             if on_circle(center, point, r):
                 clear_points.append(point)
     points = []
+    if not n:
+        n = randint(3, len(clear_points))
     if len(clear_points) < n:
         raise ValueError(
             'Не возможно построить фигуру с таким количеством уголов,'
@@ -44,6 +47,7 @@ def get_points(center, r, n):
 
 def polygon_in_round():
     """
+    https://github.com/ded-evsey/CGESA/projects/14#card-34256262
     Для заданного n>2 построить правильный n угольник,
     вписанный в окружность с данным центром и радиусом
     """
@@ -53,8 +57,16 @@ def polygon_in_round():
     while not r:
         r = int(input('Введите радиус: '))
     n = 0
-    while n <= 2:
-        n = int(input('Введите количество углов: '))
+    flag = bool(input(
+        'Выберите одно из: '
+        '\n\t 0)Случайный N-угольник'
+        '\n\t 1)Задать количество углов'
+    ))
+    if flag:
+        while n <= 2:
+            n = int(input('Введите количество углов: '))
+    else:
+        n = None
     # получение точек
     center = (float(x), float(y))
 
@@ -66,7 +78,6 @@ def polygon_in_round():
             point[0] - center[0]
         )
     )
-    print(f'Точки без сортировки {points},\n отсортированные {points_sort}')
     # отрисовка
     fig, ax = plt.subplots()
     ax.add_patch(plt.Circle(center, int(r), color='b', fill=False))
@@ -87,5 +98,27 @@ def polygon_in_round():
 #  Описаная фигура. Конец
 
 
+# Заданная функция и различные отметки на графике. Начало
+# https://github.com/ded-evsey/CGESA/projects/14#card-34256210
+# https://github.com/ded-evsey/CGESA/projects/14#card-34256309
+def many_graf():
+    max_x = int(input('Введите макисмальный X '))
+    x_list = np.arange(-max_x, max_x, 0.1)
+    arr_sin = [math.sin(x) for x in x_list]
+    arr_cos = [math.cos(x) for x in x_list]
+    arr_sinh = [math.sinh(x) for x in x_list]
+    arr_cosh = [math.cosh(x) for x in x_list]
+    plt.plot(x_list, arr_sin, '-', label='Синус')
+    plt.plot(x_list, arr_cos, '--', label='Косинус')
+    plt.plot(x_list, arr_sinh, '-.', label='Синус гиперболический')
+    plt.plot(x_list, arr_cosh, ':', label='Косинус гиперболический')
+    plt.xlabel('Ось X')
+    plt.ylabel('Ось Y')
+    plt.legend()
+    plt.show()
+# Заданная функция и различные отметки на графике. Конец
+
+
 if __name__ == '__main__':
-    polygon_in_round()
+    # polygon_in_round()
+    # many_graf()

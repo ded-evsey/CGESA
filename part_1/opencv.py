@@ -45,6 +45,7 @@ def read_write_file(func_name, grey, file_name):
 
 def laplacian(img):
     """
+    https://github.com/ded-evsey/CGESA/projects/4#card-33180662
     Загрузить заданное изображение из файла.
     Преобразовать в оттенки серого.
     Применить фильтр вычисления лапласиана.
@@ -57,6 +58,7 @@ def laplacian(img):
 
 def blur_gaussian(img):
     """
+    https://github.com/ded-evsey/CGESA/projects/4#card-33180658
     Загрузить изображение из файла.
     Применить сглаживающий фильтр Гаусса.
     Результат сохранить в файл.
@@ -68,6 +70,7 @@ def blur_gaussian(img):
 
 def median(img):
     """
+    https://github.com/ded-evsey/CGESA/projects/4#card-33180648
     Загрузить изображение из файла.
     Применить медианный сглаживающий фильтр.
     Результат сохранить в файл.
@@ -90,6 +93,7 @@ def morph(img, type_morph, kernel=KERNEL):
 
 def top_hat(img):
     """
+    https://github.com/ded-evsey/CGESA/projects/7#card-33180940
     Загрузить изображение из файла.
     Привести к оттенкам серого.
     Выполнить морфологическое преобразование
@@ -103,6 +107,7 @@ def top_hat(img):
 
 def gradient(img):
     """
+    https://github.com/ded-evsey/CGESA/projects/7#card-33180946
     Загрузить изображение из файла.
     Привести к оттенкам серого.
     Выполнить морфологическое преобразование
@@ -116,6 +121,7 @@ def gradient(img):
 
 def closing(img):
     """
+    https://github.com/ded-evsey/CGESA/projects/7#card-33180943
     Загрузить изображение из файла.
     Привести к оттенкам серого.
     Выполнить морфологическое преобразование замыкания
@@ -142,6 +148,7 @@ def erosion(img):
 
 def rotate(img):
     """
+    https://github.com/ded-evsey/CGESA/projects/9#card-33180972
     Загрузить изображение из файла.
     Выполнить поворот на заданный угол.
     Результат сохранить в файл
@@ -156,6 +163,7 @@ def rotate(img):
 
 def move(img):
     """
+    https://github.com/ded-evsey/CGESA/projects/9#card-33180970
     Загрузить изображение из файла.
     Выполнить сдвиг изображения на заданный вектор.
     Результат сохранить в файл
@@ -169,6 +177,7 @@ def move(img):
 
 def canny(img):
     """
+    https://github.com/ded-evsey/CGESA/projects/10#card-33183941
     Загрузить изображение из файла и преобразовать
     к оттенкам серого.
     Преобразовать изображение фильтром Канни.
@@ -181,6 +190,7 @@ def canny(img):
 
 def contour(img):
     """
+    https://github.com/ded-evsey/CGESA/projects/10#card-33183940
     Загрузить изображение из файла.
     Определить контуры.
     Сохранить их изображения в отдельный файл
@@ -205,6 +215,8 @@ def contour(img):
 
 def search_geometry(img):
     """
+    https://github.com/ded-evsey/CGESA/projects/11#card-33183908
+    https://github.com/ded-evsey/CGESA/projects/11#card-33183909
     Предполагая наличие на
     фотоснимке обложки книги
     обвести соответствующую
@@ -230,6 +242,7 @@ def search_geometry(img):
 
 def equalize_hist(img):
     """
+    https://github.com/ded-evsey/CGESA/projects/12#card-33183872
     Для заданного изображения выполнить
     операцию выравнивания гистограммы.
     Вывести на экран исходное
