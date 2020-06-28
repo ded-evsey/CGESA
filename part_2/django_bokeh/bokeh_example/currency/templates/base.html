@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Отношение курса валют друг к другу</title>
+    <link rel="stylesheet" href="https://cdn.bokeh.org/bokeh/release/bokeh-2.1.1.min.css" type="text/css" />
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.1.1.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div class="header p-3">
+        <h3>Диаграммы курсов валют за последнюю неделю</h3>
+    </div>
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="form-group col">
+                    <label for="{{ form.main.id_for_label }}">Первая валюта</label>
+                    {{ form.main }}
+                    {% if form.main.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.main.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group col">
+                    <label for="{{ form.sub.id_for_label }}">Вторая валюта</label>
+                    {{ form.sub }}
+                    {% if form.sub.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.sub.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group col">
+                    <label for="{{ form.date_from.id_for_label }}">От:</label>
+                    <input class="form-control" type="date" id="{{ form.date_from.id_for_label }}" name="{{ form.date_from.name }}" required>
+                    {% if form.date_from.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.date_from.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group col">
+                    <label for="{{ form.date_to.id_for_label }}">До:</label>
+                    <input class="form-control" type="date" id="{{ form.date_to.id_for_label }}" name="{{ form.date_to.name }}" required>
+                    {% if form.date_to.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.date_to.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group col">
+                    <label for="send">Запрос</label>
+                    <input class="form-control btn btn-info" type="submit" id="send" value="Отправить">
+                </div>
+            </div>
+            {% if form.errors %}
+                <div class="alert-danger">{{ form.errors }}</div>
+            {% endif %}
+        </form>
+        {{ div|safe }}
+        {{ div_pie|safe }}
+    </div>
+</body>
+<footer>
+    {{ script|safe }}
+    {{ script_pie|safe }}
+</footer>
+</html>
