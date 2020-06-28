@@ -47,7 +47,7 @@ def get_points(center, r, n=None):
 
 def polygon_in_round():
     """
-    https://github.com/ded-evsey/CGESA/projects/14#card-34256262
+    https://github.com/ded-evsey/CGESA/projects/14#card-34256262 + вариант потому что я могу
     Для заданного n>2 построить правильный n угольник,
     вписанный в окружность с данным центром и радиусом
     """
@@ -119,6 +119,104 @@ def many_graf():
 # Заданная функция и различные отметки на графике. Конец
 
 
+# https://github.com/ded-evsey/CGESA/projects/15#card-34256539 начало
+
+
+def more_points():
+    colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k', 'w']
+    markers = ['o', '*', 's', '.', 'p', 'v', 'h', '1']
+    fig, axes = plt.subplots()
+
+    def get_rand_points(count):
+        return (
+            np.random.rand(count),
+            np.random.rand(count)
+        )
+    for i in range(randint(1, len(colors))):
+        color = np.random.choice(colors)
+        colors.remove(color)
+        marker = np.random.choice(markers)
+        markers.remove(marker)
+        axes.scatter(
+            *get_rand_points(np.random.randint(100, 1000)),
+            marker=marker,
+            c=color,
+            alpha=0.6
+        )
+    plt.show()
+# https://github.com/ded-evsey/CGESA/projects/15#card-34256539 конец
+
+# https://github.com/ded-evsey/CGESA/projects/15#card-34256523 начало
+
+
+def points_in_square():
+    x, y = input('введите координаты левого нижниго угла').split(',')
+    h = int(input('введите высоту'))
+    w = int(input('введите длинну'))
+    x = int(x)
+    y = int(y)
+
+    def get_rand_point():
+        return (
+            np.random.uniform(x - w * 2, x + w * 2),
+            np.random.uniform(y - h * 2, y + h * 2),
+        )
+
+    def in_square(point):
+        if x < point[0] < x + w and y < point[1] < y+h:
+            return True
+        return False
+    points = [get_rand_point() for _ in range(randint(10, 1000))]
+    fig, axes = plt.subplots()
+    for point in points:
+        if in_square(point):
+            color = 'green'
+        else:
+            color = 'red'
+        axes.scatter(*point, color=color)
+    plt.show()
+# https://github.com/ded-evsey/CGESA/projects/15#card-34256523 конец
+# https://github.com/ded-evsey/CGESA/projects/18#card-34257460 начало
+
+
+def make_data():
+    """
+    return to coords of func, there f(x,y) = sin(x * .5) * cos(y * .7)
+    """
+    x = np.arange(-15, 15, 0.1)
+    y = np.arange(-15, 15, 0.1)
+    xgrid, ygrid = np.meshgrid(x, y)
+    zgrid = np.sin(xgrid * .5) * np.cos(ygrid * .7)
+    return xgrid, ygrid, zgrid
+
+
+def make_data_new():
+    """
+    return to coords of func, there f(x,y) = sin(x) + cos(y)
+    """
+    x, y = np.mgrid[
+           -3 * np.pi:3 * np.pi:100j,
+           -3 * np.pi:3 * np.pi:100j
+           ]
+    z = np.sinc(x) + np.cos(y)
+    return x, y, z
+
+
+def make_liner():
+    x, y, z = make_data_new()
+    fig, axes = plt.subplots()
+    levels = [-0.99, -0.7, -0.5, -0.3, -0.1, 0.0, 0.1, 0.3, 0.5, 0.7, 0.99]
+    cont = axes.contour(x, y, z, levels)
+
+    axes.clabel(cont, fmt='x=%.2f')
+    fig.set_figwidth(7)
+    fig.set_figheight(3)
+    plt.show()
+# https://github.com/ded-evsey/CGESA/projects/18#card-34257460 конец
+
+
 if __name__ == '__main__':
     # polygon_in_round()
     # many_graf()
+    #points_in_square()
+    make_liner()
