@@ -1,5 +1,5 @@
 ipdb==0.13.2
-numpy==1.18.1
+numpy==1.22.0
 opencv-python==4.2.0.32
 matplotlib==3.2.0
 bokeh==2.0.0
